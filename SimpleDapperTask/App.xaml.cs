@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProjectWithMvvm.Domain.Abstractions;
+using SimpleDapperTask.DataAccess.DapperServer;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +15,10 @@ namespace SimpleDapperTask
     /// </summary>
     public partial class App : Application
     {
+        public static IUnitOfWork Db;
+        public App()
+        {
+            Db = new UnitOfWork();
+        }
     }
 }

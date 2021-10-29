@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleDapperTask.Domain.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace SimpleDapperTask
         public MainWindow()
         {
             InitializeComponent();
+            DataContext =new MainWindowViewModel(this);
         }
     }
 }

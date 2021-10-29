@@ -10,9 +10,9 @@ namespace ProjectWithMvvm.Domain.Abstractions
   public interface IRepository<T>
     {
         T GetData(int id);
-        ObservableCollection<T> GetAllData();
+        List<T> GetAllData();
         void AddData(T data);
-        void UpdateData(T data);
-        void DeleteData(T data);
+        void UpdateData(int id,T data);
+        void DeleteData(int data);
     }
 }

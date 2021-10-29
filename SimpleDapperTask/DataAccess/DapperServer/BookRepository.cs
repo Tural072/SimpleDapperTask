@@ -1,7 +1,10 @@
-﻿using SimpleDapperTask.Domain.Abstractions;
+﻿using Dapper;
+using SimpleDapperTask.Domain.Abstractions;
 using SimpleDapperTask.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,27 +15,53 @@ namespace SimpleDapperTask.DataAccess.DapperServer
     {
         public void AddData(Book data)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnString"].ConnectionString))
+            {
+                connection.Open();
+                connection.Execute("insert into Books(Name,Price,AuthorName)values(@BookName,@BookPrice,@BAuthorName)", new { @BAuthorName = data.AuthorName, @BookName = data.Name, @BookPrice = data.Price });
+            }
         }
 
-        public void DeleteData(Book data)
+        public void DeleteData(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnString"].ConnectionString))
+            {
+                connection.Open();
+                connection.Execute("Delete from Books Where Id=@BId ", new { @BId = id });
+            }
         }
 
-        public System.Collections.ObjectModel.ObservableCollection<Book> GetAllData()
+        public List<Book> GetAllData()
         {
-            throw new NotImplementedException();
+            List<Book> products = new List<Book>();
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnString"].ConnectionString))
+            {
+                connection.Open();
+                products = connection.Query<Book>("select*from Books").ToList();
+            }
+            return products;
         }
 
         public Book GetData(int id)
         {
-            throw new NotImplementedException();
+            Book book = new Book();
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnString"].ConnectionString))
+            {
+                connection.Open();
+                book = connection.QueryFirstOrDefault<Book>("select *from Books where Id=@Bid", new { @Bid = id });
+            }
+            return book;
+
+
         }
 
-        public void UpdateData(Book data)
+        public void UpdateData(int id,Book data)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnString"].ConnectionString))
+            {
+                connection.Open();
+                connection.Execute("Update Books Set Name=@BName,Price=@BPrice,AuthorName=@BAuthorName where Id=@BId", new { @BAuthorName = data.AuthorName, @BName = data.Name, @BPrice = data.Price, @BId = id });
+            }
         }
     }
 }

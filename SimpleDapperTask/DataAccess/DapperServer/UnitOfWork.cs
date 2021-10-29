@@ -10,6 +10,6 @@ namespace SimpleDapperTask.DataAccess.DapperServer
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public IBookRepository BookRepository => BookRepository;
+        public IBookRepository BookRepository =>new  BookRepository();
     }
 }

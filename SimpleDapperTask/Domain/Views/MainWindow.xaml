@@ -3,10 +3,85 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SimpleDapperTask"
+        xmlns:local="clr-namespace:SimpleDapperTask" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="910">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <DataGrid Name="mainDataGrid"
+                  Background="Aquamarine"
+                  SelectedItem="{Binding SelectedBooks}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectBookCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </DataGrid>
+        <StackPanel Grid.Row="1">
+            <WrapPanel Margin="0,0,0,50">
+                <Button x:Name="addBtn"
+                    Content="Add Product"
+                    FontFamily="comic sans ms"
+                    Width="230"
+                    Height="50"
+                    FontSize="30"
+                    Background="BlanchedAlmond"
+                    Margin="30,0,45,0"
+                    Command="{Binding AddCommand}"></Button>
+                <Button x:Name="updateBtn"
+                    Content="Update Product"
+                    FontFamily="comic sans ms"
+                    Width="230"
+                    Height="50"
+                    FontSize="30"
+                    Background="BlanchedAlmond"
+                    Margin="10,0,45,0"
+                        Command="{Binding UpdateCommand}"></Button>
+                <Button x:Name="deleteBtn"
+                    Content="Delete Product"
+                    FontFamily="comic sans ms"
+                    Width="230"
+                    Height="50"
+                    FontSize="30"
+                    Background="BlanchedAlmond"
+                    Margin="10"
+                        Command="{Binding DeleteCommand}"></Button>
+            </WrapPanel>
+            <WrapPanel>
+                <WrapPanel>
+                    <Label Content="Name"
+                           FontFamily="comic sans ms"
+                           FontSize="20"
+                           Margin="0,0,10,0"></Label>
+                    <TextBox x:Name="nameTxtbx"
+                             FontFamily="comic sans ms"
+                             FontSize="15"
+                             Width="200"></TextBox>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="Price"
+                           FontFamily="comic sans ms"
+                           FontSize="20"
+                           Margin="0,0,10,0"></Label>
+                    <TextBox x:Name="priceTxtbx"
+                             FontFamily="comic sans ms"
+                             FontSize="15"
+                             Width="200"></TextBox>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="Author Name"
+                           FontFamily="comic sans ms"
+                           FontSize="20"
+                           Margin="0,0,10,0"></Label>
+                    <TextBox x:Name="authorNameTxtbx"
+                             FontFamily="comic sans ms"
+                             FontSize="15"
+                             Width="200"></TextBox>
+                </WrapPanel>
+            </WrapPanel>
+        </StackPanel>
     </Grid>
 </Window>
